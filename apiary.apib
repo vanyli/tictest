@@ -7,23 +7,43 @@ Dashboards are collections of users' Datapoints.
 Dashboards related resources of the **Dashboards API**
 
 ## Dashboards Collection [/dashboards/]
-### List all user's Dasbhoards [GET]
+### List all user's Dashboards [GET]
 + Response 200 (application/json)
 
-        [{
-          "id": 1, "title": "Jogging in park"
-        }, {
-          "id": 2, "title": "Pick-up posters from post-office"
-        }]
+        {
+            "count": 1,
+            "next": null,
+            "previous": null,
+            "results": [
+                {
+                    "id": 1,
+                    "user": 77298,
+                    "name": "home",
+                    "state": "my spoon is too big",
+                    "date_added": "2014-10-23T11:33:53"
+                }
+            ]
+        }
 
 ### Create a Dashboard [POST]
 + Request (application/json)
 
-        { "title": "Buy cheese and bread for breakfast." }
-
+        {
+            "name": "home",
+            "state": {
+                "quote": "My spoon is too big!"
+            }
+        }
+        
 + Response 201 (application/json)
 
-        { "id": 3, "title": "Buy cheese and bread for breakfast." }
+        {
+            "id": 1,
+            "name": "home",
+            "state": {
+                "quote": "My spoon is too big!"
+            }
+        }
 
 ## Dashboards [/dashboards/{id}]
 A single Dashboard object with all its details
@@ -31,16 +51,49 @@ A single Dashboard object with all its details
 + Parameters
     + id (required, number, `1`) ... Numeric `id` of the Note to perform action with. Has example value.
 
-### Retrieve a Note [GET]
+### Update Dashboard [PATCH]
 + Response 200 (application/json)
 
-    + Header
-
-            X-My-Header: The Value
-
-    + Body
-
-            { "id": 2, "title": "Pick-up posters from post-office" }
-
+        {
+            "name": "updated name",
+            "state":
+            {
+                "foo": "bar"
+            }
+        }
+        
 ### Remove Dashboard [DELETE]
 + Response 204
+
+
+# Group Widgets
+Dashboards related resources of the **Dashboards API**
+
+## Widgets Collection [/dashboards/{id}/datasets/]
+### List all Widgets on Dashboard [GET]
++ Response 200 (application/json)
+
+        {   
+            "count": 1,
+            "next": null,
+            "previous": null,
+            "results": [
+                {
+                    "data_format": "tictrac_moving"
+                }
+            ]
+        }
+
+### Add Widget [POST]
++ Request (application/json)
+
+        {
+            "data_format": "tictrac_moving"
+        }
+
++ Response 201 (application/json)
+
+        {
+            "data_format": "tictrac_moving"
+        }
+
